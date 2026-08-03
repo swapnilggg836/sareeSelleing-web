@@ -1,9 +1,9 @@
-import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "./components/ui/sonner";
+import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
-import { WishlistProvider } from "@/hooks/use-wishlist";
+import { AuthProvider } from "./contexts/AuthContext";
+import { WishlistProvider } from "./hooks/use-wishlist";
 import Index from "./pages/Index";
 import AuthPage from "./pages/AuthPage";
 import AboutPage from "./pages/AboutPage";
