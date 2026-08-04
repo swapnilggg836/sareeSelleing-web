@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +19,7 @@ const formSchema = z.object({
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,8 +33,13 @@ const LoginForm = () => {
     setIsLoading(true);
     
     try {
-      await login(values.email, values.password);
+      const res = await login(values.email, values.password);
       toast.success("Login successful!");
+      if (res?.user?.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     } catch (error: any) {
       toast.error(error.message || "Login failed");
     } finally {

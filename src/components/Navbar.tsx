@@ -38,6 +38,7 @@ const quickLinks = [
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileCatOpen, setMobileCatOpen] = useState(false);
@@ -151,6 +152,11 @@ const Navbar = () => {
                     <DropdownMenuItem className="font-medium text-crimson-700">
                       {user?.name}
                     </DropdownMenuItem>
+                    {user?.role === 'admin' && (
+                      <DropdownMenuItem onClick={() => navigate('/admin')}>
+                        <LayoutDashboard className="mr-2 h-4 w-4" /> Admin Dashboard
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem onClick={() => setIsProfileEditOpen(true)}>
                       <Edit className="mr-2 h-4 w-4" /> Edit Profile
                     </DropdownMenuItem>

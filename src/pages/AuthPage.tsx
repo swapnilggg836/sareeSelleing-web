@@ -8,14 +8,18 @@ import LoginForm from '@/components/LoginForm';
 import SignupForm from '@/components/SignupForm';
 
 const AuthPage = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      navigate('/');
+      if (user?.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     }
-  }, [isAuthenticated, isLoading, navigate]);
+  }, [isAuthenticated, isLoading, user, navigate]);
 
   if (isLoading) {
     return (
