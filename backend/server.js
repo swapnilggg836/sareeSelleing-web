@@ -25,6 +25,10 @@ app.use(cors({
   credentials: true
 }));
 
+// Body parsing middleware — MUST be before routes
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
 // Ensure DB is connected before processing requests
 app.use(async (req, res, next) => {
   try {
@@ -138,12 +142,13 @@ app.get('/api/seed-admin', async (req, res) => {
   }
 });
 
-// Error handling middleware
+// Error handling middleware — always return JSON, never HTML
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
+  console.error('Server error:', err.message || err);
+  const status = err.statusCode || err.status || 500;
+  res.status(status).json({
     success: false,
-    error: 'Server Error'
+    error: err.message || 'Server Error'
   });
 });
 
