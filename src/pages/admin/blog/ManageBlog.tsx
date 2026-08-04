@@ -29,7 +29,7 @@ const ManageBlog = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:5000/blog', {
+      const response = await fetch('/api/blog', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const ManageBlog = () => {
     if (confirm('Are you sure you want to delete this blog post?')) {
       try {
         const token = localStorage.getItem('auth_token');
-        const response = await fetch(`http://localhost:5000/blog/${id}`, {
+        const response = await fetch(`/api/blog/${id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`,

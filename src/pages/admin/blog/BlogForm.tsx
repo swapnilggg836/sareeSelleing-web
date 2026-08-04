@@ -62,7 +62,7 @@ const BlogForm = () => {
   const fetchBlogPost = async () => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:5000/blog/${id}`, {
+      const response = await fetch(`/api/blog/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -82,7 +82,7 @@ const BlogForm = () => {
         });
 
         if (blogData.image) {
-          setImagePreview(`http://localhost:5000${blogData.image}`);
+          setImagePreview(`/api${blogData.image}`);
         }
       } else {
         toast.error('Failed to fetch blog post');
@@ -124,8 +124,8 @@ const BlogForm = () => {
 
       const token = localStorage.getItem('auth_token');
       const url = isEditing 
-        ? `http://localhost:5000/blog/${id}` 
-        : 'http://localhost:5000/blog';
+        ? `/api/blog/${id}` 
+        : '/api/blog';
       
       const method = isEditing ? 'PUT' : 'POST';
 

@@ -61,7 +61,7 @@ const BannerForm = () => {
   const fetchBannerData = async () => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:5000/banners/${id}`, {
+      const response = await fetch(`/api/banners/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -75,7 +75,7 @@ const BannerForm = () => {
         setValue('position', banner.position);
         setValue('active', banner.active);
         if (banner.image) {
-          setImagePreview(`http://localhost:5000${banner.image}`);
+          setImagePreview(`/api${banner.image}`);
         }
       }
     } catch (error) {
@@ -113,8 +113,8 @@ const BannerForm = () => {
 
       const token = localStorage.getItem('auth_token');
       const url = isEditing 
-        ? `http://localhost:5000/banners/${id}`
-        : 'http://localhost:5000/banners';
+        ? `/api/banners/${id}`
+        : '/api/banners';
       
       const method = isEditing ? 'PUT' : 'POST';
 

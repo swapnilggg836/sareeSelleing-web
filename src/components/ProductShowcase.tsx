@@ -391,7 +391,7 @@ const ProductShowcase = ({ sales = [] }: ProductShowcaseProps) => {
     let url = (product.images && product.images.length > 0) ? product.images[0].url : (product.image || '');
     if (!url) return '/placeholder.svg';
     if (url.startsWith('/uploads/')) {
-      return `http://localhost:5000${url}`;
+      return `/api${url}`;
     }
     return url;
   };

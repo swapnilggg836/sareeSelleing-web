@@ -32,7 +32,7 @@ const ManageCategories = () => {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:5000/categories', {
+      const response = await fetch('/api/categories', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -56,7 +56,7 @@ const ManageCategories = () => {
     if (confirm('Are you sure you want to delete this category?')) {
       try {
         const token = localStorage.getItem('auth_token');
-        const response = await fetch(`http://localhost:5000/categories/${id}`, {
+        const response = await fetch(`/api/categories/${id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`,

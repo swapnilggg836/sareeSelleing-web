@@ -17,22 +17,34 @@ function scrollToProducts() {
   }
 }
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const SalePage = () => {
   const [showAllSale, setShowAllSale] = useState(false);
 
   const { data: salesResponse, isLoading: salesLoading } = useQuery({
     queryKey: ['sales'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/sales');
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/sales`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 
   const { data: productsResponse, isLoading: productsLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/products');
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/products`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 

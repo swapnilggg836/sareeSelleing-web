@@ -125,7 +125,7 @@ const CheckoutPage = () => {
         paymentMethod: gateway,
         paymentInfo: gatewayResponse ? { razorpay: gatewayResponse } : undefined,
       };
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/orders`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || '/api'}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ const CheckoutPage = () => {
         paymentMethod
       };
       
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/orders`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || '/api'}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

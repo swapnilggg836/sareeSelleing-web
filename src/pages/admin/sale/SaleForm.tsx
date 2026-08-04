@@ -63,7 +63,7 @@ const SaleForm = () => {
 
   const fetchSaleData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/sales/${id}`);
+      const response = await fetch(`/api/sales/${id}`);
       const result = await response.json();
       
       if (result.success) {
@@ -103,8 +103,8 @@ const SaleForm = () => {
       }
 
       const url = isEditing 
-        ? `http://localhost:5000/sales/${id}`
-        : 'http://localhost:5000/sales';
+        ? `/api/sales/${id}`
+        : '/api/sales';
       
       const method = isEditing ? 'PUT' : 'POST';
       

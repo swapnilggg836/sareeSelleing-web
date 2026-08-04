@@ -5,12 +5,19 @@ import Footer from '@/components/Footer';
 import BannerCarousel from '@/components/BannerCarousel';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const BannersPage = () => {
   const { data: bannersResponse, isLoading } = useQuery({
     queryKey: ['banners'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/banners');
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/banners`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 
@@ -52,7 +59,7 @@ const BannersPage = () => {
                     <Card key={banner._id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                       <div className="aspect-[16/9] w-full overflow-hidden">
                         <img 
-                          src={banner.image ? `http://localhost:5000${banner.image}` : '/placeholder.svg'} 
+                          src={banner.image ? `/api${banner.image}` : '/placeholder.svg'} 
                           alt={banner.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />

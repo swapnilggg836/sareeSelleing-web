@@ -9,37 +9,59 @@ import CustomerReviews from "@/components/CustomerReviews"; // <-- swap this in!
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const Index = () => {
   // Fetch collections, banners, blog posts for the home page
   const { data: collectionsResponse } = useQuery({
     queryKey: ['collections'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/collections');
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/collections`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 
   const { data: bannersResponse } = useQuery({
     queryKey: ['banners'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/banners');
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/banners`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 
   const { data: blogResponse } = useQuery({
     queryKey: ['blog-posts'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/blog');
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/blog`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 
   const { data: salesResponse } = useQuery({
     queryKey: ['sales'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/sales');
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/sales`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 

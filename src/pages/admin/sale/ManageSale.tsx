@@ -32,7 +32,7 @@ const ManageSale = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:5000/sales', {
+      const response = await fetch('/api/sales', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const ManageSale = () => {
     if (confirm('Are you sure you want to delete this sale?')) {
       try {
         const token = localStorage.getItem('auth_token');
-        const response = await fetch(`http://localhost:5000/sales/${id}`, {
+        const response = await fetch(`/api/sales/${id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`,

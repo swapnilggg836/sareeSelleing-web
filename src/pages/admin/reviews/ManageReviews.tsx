@@ -19,7 +19,7 @@ const ManageReviews = () => {
     queryKey: ['admin-reviews'],
     queryFn: async () => {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:5000/reviews/admin/all', {
+      const response = await fetch('/api/reviews/admin/all', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -41,7 +41,7 @@ const ManageReviews = () => {
 
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:5000/reviews/${reviewId}`, {
+      const response = await fetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -63,7 +63,7 @@ const ManageReviews = () => {
   const toggleApproval = async (reviewId: string, currentStatus: boolean) => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:5000/reviews/${reviewId}`, {
+      const response = await fetch(`/api/reviews/${reviewId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

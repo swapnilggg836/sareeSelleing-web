@@ -109,12 +109,19 @@ const ReviewCard = ({ review }: { review: any }) => (
   </div>
 );
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const CustomerReviews = () => {
   const { data: reviewsResponse, isLoading } = useQuery({
     queryKey: ["reviews"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:5000/reviews");
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/reviews`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 

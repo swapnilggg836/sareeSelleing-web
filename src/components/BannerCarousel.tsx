@@ -110,7 +110,7 @@ const BannerCarousel = ({ banners, className = "" }: BannerCarouselProps) => {
           className="absolute inset-0 bg-cover bg-center hero-slide-bg"
           style={{
             backgroundImage: `url(${currentBanner.image
-              ? (currentBanner.image.startsWith('http') ? currentBanner.image : `http://localhost:5000${currentBanner.image}`)
+              ? (currentBanner.image.startsWith('http') ? currentBanner.image : `/api${currentBanner.image}`)
               : 'https://images.unsplash.com/photo-1583391733856-f2996e47cbf6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80'})`
           }}
         />

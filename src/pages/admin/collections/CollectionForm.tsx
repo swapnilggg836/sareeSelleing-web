@@ -60,7 +60,7 @@ const CollectionForm = () => {
   const fetchCollectionData = async () => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:5000/collections/${id}`, {
+      const response = await fetch(`/api/collections/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -74,7 +74,7 @@ const CollectionForm = () => {
         setValue('featured', collection.featured);
         // Removed products set logic
         if (collection.image) {
-          setImagePreview(`http://localhost:5000${collection.image}`);
+          setImagePreview(`/api${collection.image}`);
         }
       }
     } catch (error) {
@@ -110,8 +110,8 @@ const CollectionForm = () => {
 
       const token = localStorage.getItem('auth_token');
       const url = isEditing 
-        ? `http://localhost:5000/collections/${id}`
-        : 'http://localhost:5000/collections';
+        ? `/api/collections/${id}`
+        : '/api/collections';
       
       const method = isEditing ? 'PUT' : 'POST';
 

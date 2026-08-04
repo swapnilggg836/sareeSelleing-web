@@ -89,7 +89,7 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
         },
         paymentMethod: "cod",
       };
-      const resp = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/orders`, {
+      const resp = await fetch(`${import.meta.env.VITE_API_URL || "/api"}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -153,7 +153,7 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
               paymentMethod: "razorpay",
               paymentInfo: { razorpay: response },
             };
-            const resp = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/orders`, {
+            const resp = await fetch(`${import.meta.env.VITE_API_URL || "/api"}/orders`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

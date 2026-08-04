@@ -31,7 +31,7 @@ const ManageCollections = () => {
   const fetchCollections = async () => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:5000/collections', {
+      const response = await fetch('/api/collections', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -55,7 +55,7 @@ const ManageCollections = () => {
     if (confirm('Are you sure you want to delete this collection?')) {
       try {
         const token = localStorage.getItem('auth_token');
-        const response = await fetch(`http://localhost:5000/collections/${id}`, {
+        const response = await fetch(`/api/collections/${id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -146,7 +146,7 @@ const ManageCollections = () => {
                   <TableRow key={collection._id}>
                     <TableCell>
                       <img
-                        src={collection.image ? `http://localhost:5000${collection.image}` : '/placeholder.svg'}
+                        src={collection.image ? `/api${collection.image}` : '/placeholder.svg'}
                         alt={collection.name}
                         className="w-12 h-12 object-cover rounded-md"
                       />

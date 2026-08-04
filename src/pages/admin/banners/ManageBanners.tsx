@@ -167,7 +167,7 @@ const ManageBanners = () => {
                     <TableRow key={banner._id}>
                       <TableCell>
                         <img
-                          src={banner.image ? `http://localhost:5000${banner.image}` : '/placeholder.svg'}
+                          src={banner.image ? `/api${banner.image}` : '/placeholder.svg'}
                           alt={banner.title}
                           className="w-16 h-10 object-cover rounded-md"
                         />

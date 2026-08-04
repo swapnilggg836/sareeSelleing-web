@@ -73,7 +73,7 @@ const CategoryForm = () => {
   const fetchCategory = async () => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:5000/categories/${id}`, {
+      const response = await fetch(`/api/categories/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -92,7 +92,7 @@ const CategoryForm = () => {
         });
 
         if (categoryData.image) {
-          setImagePreview(`http://localhost:5000${categoryData.image}`);
+          setImagePreview(`/api${categoryData.image}`);
         }
       } else {
         toast.error('Failed to fetch category');
@@ -133,8 +133,8 @@ const CategoryForm = () => {
 
       const token = localStorage.getItem('auth_token');
       const url = isEditing 
-        ? `http://localhost:5000/categories/${id}` 
-        : 'http://localhost:5000/categories';
+        ? `/api/categories/${id}` 
+        : '/api/categories';
       
       const method = isEditing ? 'PUT' : 'POST';
 

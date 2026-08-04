@@ -60,7 +60,7 @@ const ReviewForm = () => {
     queryKey: ['products'],
     queryFn: async () => {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:5000/products', {
+      const response = await fetch('/api/products', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -81,7 +81,7 @@ const ReviewForm = () => {
   const fetchReview = async () => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:5000/reviews/${id}`, {
+      const response = await fetch(`/api/reviews/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -117,8 +117,8 @@ const ReviewForm = () => {
     try {
       const token = localStorage.getItem('auth_token');
       const url = isEditing 
-        ? `http://localhost:5000/reviews/${id}` 
-        : 'http://localhost:5000/reviews';
+        ? `/api/reviews/${id}` 
+        : '/api/reviews';
       
       const method = isEditing ? 'PUT' : 'POST';
 

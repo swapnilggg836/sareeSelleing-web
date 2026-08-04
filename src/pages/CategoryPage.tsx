@@ -5,28 +5,34 @@ import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const CategoryPage = () => {
   const { category } = useParams();
   
   const { data: categoriesResponse, isLoading: categoriesLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/categories');
-      if (!response.ok) {
-        throw new Error('Failed to fetch categories');
+      try {
+        const response = await fetch(`${API_BASE_URL}/categories`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
       }
-      return response.json();
     },
   });
 
   const { data: productsResponse, isLoading: productsLoading } = useQuery({
     queryKey: ['products', category],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/products');
-      if (!response.ok) {
-        throw new Error('Failed to fetch products');
+      try {
+        const response = await fetch(`${API_BASE_URL}/products`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
       }
-      return response.json();
     },
   });
 
@@ -109,7 +115,7 @@ const CategoryPage = () => {
           {currentCategory?.image && (
             <div className="w-full h-64 mb-6 rounded-lg overflow-hidden">
               <img 
-                src={`http://localhost:5000${currentCategory.image}`} 
+                src={`/api${currentCategory.image}`} 
                 alt={currentCategory.name}
                 className="w-full h-full object-cover"
                 onError={(e) => {

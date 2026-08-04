@@ -4,12 +4,19 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const BlogPage = () => {
   const { data: blogResponse, isLoading } = useQuery({
     queryKey: ['blog-posts'],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/blog');
-      return response.json();
+      try {
+        const response = await fetch(`${API_BASE_URL}/blog`);
+        if (!response.ok) return { data: [] };
+        return await response.json();
+      } catch (e) {
+        return { data: [] };
+      }
     },
   });
 
@@ -49,7 +56,7 @@ const BlogPage = () => {
                 <Card key={post._id} className="hover:shadow-lg transition-shadow">
                   <div className="aspect-video w-full overflow-hidden rounded-t-lg">
                     <img 
-                      src={post.image ? `http://localhost:5000${post.image}` : '/placeholder.svg'} 
+                      src={post.image ? `/api${post.image}` : '/placeholder.svg'} 
                       alt={post.title}
                       className="w-full h-full object-cover"
                       onError={handleImageError}
