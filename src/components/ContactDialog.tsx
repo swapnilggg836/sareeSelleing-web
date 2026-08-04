@@ -6,9 +6,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { contactApi } from "@/api/apiClient";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+
+const FORMSPREE_URL = "https://formspree.io/f/xrbknpod";
 
 interface ContactDialogProps {
   open: boolean;
@@ -39,12 +40,23 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
     setError(null);
 
     try {
-      // Send data to the API
-      await contactApi.submitContactForm(formData);
-      
-      // Show success message
-      toast.success("Message sent successfully!");
-      
+      // Send data to Formspree — emails swapnilg836@gmail.com
+      const response = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Formspree submission failed");
+
+      toast.success("Message sent successfully! We'll reply soon.");
+
       // Close the dialog and reset form
       onOpenChange(false);
       setFormData({

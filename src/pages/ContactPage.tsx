@@ -76,11 +76,11 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <h3 className="font-medium">Email</h3>
-                  <p className="text-muted-foreground">contact@dwarkadish.com</p>
+                  <p className="text-muted-foreground">swapnilg836@gmail.com</p>
                 </div>
                 <div>
                   <h3 className="font-medium">Phone</h3>
-                  <p className="text-muted-foreground">+91 98765 43210</p>
+                  <p className="text-muted-foreground">+91 86058 87561</p>
                 </div>
                 <div>
                   <h3 className="font-medium">Hours</h3>
