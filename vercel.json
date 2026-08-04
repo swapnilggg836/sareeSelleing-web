@@ -1,15 +1,5 @@
 {
   "version": 2,
-  "services": [
-    {
-      "name": "web",
-      "src": "package.json"
-    },
-    {
-      "name": "api",
-      "src": "api/index.js"
-    }
-  ],
   "builds": [
     {
       "src": "package.json",
@@ -19,14 +9,14 @@
       }
     },
     {
-      "src": "api/index.js",
+      "src": "backend/server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "api/index.js"
+      "dest": "backend/server.js"
     },
     {
       "handle": "filesystem"
