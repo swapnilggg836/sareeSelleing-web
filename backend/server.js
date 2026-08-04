@@ -6,8 +6,13 @@ const path = require('path');
 const fs = require('fs');
 const connectDB = require('./config/db');
 
-// Load env vars
-dotenv.config({ path: './config/config.env' });
+// Load env vars - try config.env first (local), then fall back to process.env (Vercel)
+const configPath = path.join(__dirname, 'config/config.env');
+if (fs.existsSync(configPath)) {
+  dotenv.config({ path: configPath });
+} else {
+  dotenv.config();
+}
 
 // Connect to database
 connectDB();
