@@ -25,21 +25,22 @@ app.use(cors({
   credentials: true
 }));
 
-// Create upload directories if they don't exist
-const uploadDirs = [
-  'uploads',
-  'uploads/products',
-  'uploads/collections',
-  'uploads/banners',
-  'uploads/categories',
-  'uploads/blog'
-];
-
-uploadDirs.forEach(dir => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-});
+// Create upload directories only in local dev (Vercel has read-only filesystem)
+if (process.env.NODE_ENV !== 'production') {
+  const uploadDirs = [
+    'uploads',
+    'uploads/products',
+    'uploads/collections',
+    'uploads/banners',
+    'uploads/categories',
+    'uploads/blog'
+  ];
+  uploadDirs.forEach(dir => {
+    try {
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    } catch(e) {}
+  });
+}
 
 // Static file serving
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
