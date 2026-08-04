@@ -37,7 +37,7 @@ uploadDirs.forEach(dir => {
 });
 
 // Static file serving
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Global JSON middleware
 app.use(express.json());
@@ -61,23 +61,23 @@ const adminNotificationRoutes = require('./routes/adminNotificationRoutes');
 const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
 
 // Mount routes
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
-app.use('/products', productRoutes);
-app.use('/collections', collectionRoutes);
-app.use('/banners', bannerRoutes);
-app.use('/categories', categoryRoutes);
-app.use('/blog', blogRoutes);
-app.use('/sales', saleRoutes);
-app.use('/sale', saleRoutes);
-app.use('/cart', cartRoutes);
-app.use('/orders', orderRoutes);
-app.use('/wishlist', wishlistRoutes);
-app.use('/reviews', reviewRoutes);
-app.use('/contact', contactRoutes);
-app.use('/newsletter', newsletterRoutes);
-app.use('/admin/notifications', adminNotificationRoutes);
-app.use('/admin/dashboard', adminDashboardRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/collections', collectionRoutes);
+app.use('/api/banners', bannerRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/blog', blogRoutes);
+app.use('/api/sales', saleRoutes);
+app.use('/api/sale', saleRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/wishlist', wishlistRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/admin/notifications', adminNotificationRoutes);
+app.use('/api/admin/dashboard', adminDashboardRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
