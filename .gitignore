@@ -18,6 +18,7 @@ dist-ssr
 backend/node_modules
 backend/uploads/*
 !backend/uploads/.gitkeep
+backend/config/config.env
 
 # Editor directories and files
 .vscode/*
