@@ -1,23 +1,22 @@
 
 const mongoose = require('mongoose');
 
+let isConnected = false;
+
 const connectDB = async () => {
+  if (isConnected || mongoose.connection.readyState === 1) {
+    return;
+  }
+
   try {
-    const mongoURI = process.env.MONGODB_URI;
-
-    if (!mongoURI) {
-      console.error('MongoDB URI is not defined in environment variables');
-      if (process.env.NODE_ENV !== 'production') process.exit(1);
-      return;
-    }
-
-    console.log('Connecting to MongoDB...');
+    const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://swapnil:UaJfkMdnZtHq.62@cluster0.6obrx.mongodb.net/adminpaith?retryWrites=true&w=majority&appName=Cluster0';
+    console.log('Connecting to MongoDB Atlas...');
     const conn = await mongoose.connect(mongoURI);
+    isConnected = true;
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     return conn;
   } catch (error) {
     console.error(`Error connecting to MongoDB: ${error.message}`);
-    if (process.env.NODE_ENV !== 'production') process.exit(1);
   }
 };
 

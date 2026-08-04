@@ -25,6 +25,16 @@ app.use(cors({
   credentials: true
 }));
 
+// Ensure DB is connected before processing requests
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+  } catch (e) {
+    console.error("DB Connection error in middleware:", e);
+  }
+  next();
+});
+
 // Create upload directories only in local dev (Vercel has read-only filesystem)
 if (process.env.NODE_ENV !== 'production') {
   const uploadDirs = [
