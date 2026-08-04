@@ -52,7 +52,14 @@ const Navbar = () => {
 
   const { data: cartData } = useQuery({
     queryKey: ['cartCount'],
-    queryFn: () => cartApi.getCart().then(res => res.data),
+    queryFn: async () => {
+      try {
+        const res = await cartApi.getCart();
+        return res?.data || { items: [] };
+      } catch (e) {
+        return { items: [] };
+      }
+    },
     staleTime: 60000,
     enabled: isAuthenticated,
   });

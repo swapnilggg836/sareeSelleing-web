@@ -136,7 +136,13 @@ export const authApi = {
 // Cart API functions
 export const cartApi = {
   getCart: async () => {
-    return apiRequest('/cart');
+    try {
+      const token = localStorage.getItem('auth_token');
+      if (!token) return { success: true, data: { items: [] } };
+      return await apiRequest('/cart');
+    } catch (e) {
+      return { success: true, data: { items: [] } };
+    }
   },
   
   addToCart: async (productId: string, quantity: number, color?: string) => {
