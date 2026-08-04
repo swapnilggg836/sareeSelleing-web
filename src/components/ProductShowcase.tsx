@@ -478,7 +478,8 @@ const ProductShowcase = ({ sales = [] }: ProductShowcaseProps) => {
                     const productImage = getProductImageUrl(product);
 
                     // Check if this product is on sale
-                    const onSale = sales.find(sale => sale.productId === productId);
+                    const safeSales = Array.isArray(sales) ? sales : [];
+                    const onSale = safeSales.find(sale => sale && (sale.productId === productId || sale.productId?._id === productId));
                     const salePrice = onSale ? product.price * (1 - onSale.discountPercentage / 100) : null;
                     
                     const isProductInWishlist = isInWishlist(productId.toString());

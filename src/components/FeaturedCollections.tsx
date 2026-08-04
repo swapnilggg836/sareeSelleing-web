@@ -165,7 +165,7 @@ const FeaturedCollections = ({ collections }: FeaturedCollectionsProps) => {
         </div>
 
         {/* Featured collections from DB */}
-        {collections && collections.filter(c => c.featured).length > 0 && (
+        {Array.isArray(collections) && collections.filter(c => c && c.featured).length > 0 && (
           <div ref={collRef} className="mt-20">
             <div className={cn("text-center mb-10 reveal-up", collVisible && "visible")}>
               <div className="flex items-center justify-center gap-3 mb-3">
@@ -182,7 +182,7 @@ const FeaturedCollections = ({ collections }: FeaturedCollectionsProps) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {collections
-                .filter(c => c.featured)
+                .filter(c => c && c.featured)
                 .map((collection, index) => (
                   <Link
                     key={collection._id}

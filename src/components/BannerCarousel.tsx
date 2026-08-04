@@ -26,7 +26,8 @@ const BannerCarousel = ({ banners, className = "" }: BannerCarouselProps) => {
   const [textKey, setTextKey] = useState(0); // forces re-mount of text to re-trigger animations
   const navigate = useNavigate();
 
-  const activeBanners = banners.filter(banner => banner.active);
+  const safeBanners = Array.isArray(banners) ? banners : [];
+  const activeBanners = safeBanners.filter(banner => banner && banner.active);
 
   const goToSlide = useCallback((index: number) => {
     setCurrentIndex(index);
