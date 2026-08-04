@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, ChevronDown, ChevronRight, ShoppingCart, Search, User, LogOut, Edit, Heart, X } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SearchDialog from "@/components/SearchDialog";
 import ContactDialog from "@/components/ContactDialog";
 import ProfileEditDialog from "@/components/ProfileEditDialog";
