@@ -92,24 +92,31 @@ const newsletterRoutes = require('./routes/newsletterRoutes');
 const adminNotificationRoutes = require('./routes/adminNotificationRoutes');
 const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
 
-// Mount routes
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/collections', collectionRoutes);
-app.use('/api/banners', bannerRoutes);
-app.use('/api/categories', categoryRoutes);
-app.use('/api/blog', blogRoutes);
-app.use('/api/sales', saleRoutes);
-app.use('/api/sale', saleRoutes);
-app.use('/api/cart', cartRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/wishlist', wishlistRoutes);
-app.use('/api/reviews', reviewRoutes);
-app.use('/api/contact', contactRoutes);
-app.use('/api/newsletter', newsletterRoutes);
-app.use('/api/admin/notifications', adminNotificationRoutes);
-app.use('/api/admin/dashboard', adminDashboardRoutes);
+// Mount routes (with and without /api prefix to handle Vercel serverless rewrites)
+const routeList = [
+  ['/auth', authRoutes],
+  ['/users', userRoutes],
+  ['/products', productRoutes],
+  ['/collections', collectionRoutes],
+  ['/banners', bannerRoutes],
+  ['/categories', categoryRoutes],
+  ['/blog', blogRoutes],
+  ['/sales', saleRoutes],
+  ['/sale', saleRoutes],
+  ['/cart', cartRoutes],
+  ['/orders', orderRoutes],
+  ['/wishlist', wishlistRoutes],
+  ['/reviews', reviewRoutes],
+  ['/contact', contactRoutes],
+  ['/newsletter', newsletterRoutes],
+  ['/admin/notifications', adminNotificationRoutes],
+  ['/admin/dashboard', adminDashboardRoutes]
+];
+
+routeList.forEach(([routePath, routerModule]) => {
+  app.use(`/api${routePath}`, routerModule);
+  app.use(routePath, routerModule);
+});
 
 // ✅ ONE-TIME ADMIN SEED ROUTE — visit /api/seed-admin?key=swapnil2024 to create admin
 app.get('/api/seed-admin', async (req, res) => {
