@@ -45,8 +45,20 @@ if (process.env.NODE_ENV !== 'production') {
 // Static file serving
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Global JSON middleware
-app.use(express.json());
+// Pre-register all Mongoose models to prevent MissingSchemaError during populate calls
+require('./models/User');
+require('./models/Product');
+require('./models/Collection');
+require('./models/Banner');
+require('./models/Category');
+require('./models/Blog');
+require('./models/Sale');
+require('./models/Cart');
+require('./models/Order');
+require('./models/Wishlist');
+require('./models/Review');
+require('./models/Contact');
+require('./models/Newsletter');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
