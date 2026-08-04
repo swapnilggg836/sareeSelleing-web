@@ -66,12 +66,12 @@ function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <WishlistProvider>
-          <TooltipProvider>
-            <Toaster />
-            <BrowserRouter>
-              <Routes>
+        <BrowserRouter>
+          <AuthProvider>
+            <WishlistProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Index />} />
                 <Route path="/auth" element={<AuthPage />} />
@@ -153,10 +153,10 @@ function App() {
 
               {/* Floating WhatsApp Widget across entire store */}
               <WhatsAppFloatingButton />
-            </BrowserRouter>
-          </TooltipProvider>
-        </WishlistProvider>
-      </AuthProvider>
+            </TooltipProvider>
+          </WishlistProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </QueryClientProvider>
     </ErrorBoundary>
   );
