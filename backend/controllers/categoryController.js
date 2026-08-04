@@ -9,9 +9,11 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadPath = 'uploads/categories/';
     // Ensure directory exists
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
+    try {
+      if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath, { recursive: true });
+      }
+    } catch (e) {}
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {

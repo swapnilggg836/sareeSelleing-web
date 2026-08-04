@@ -7,9 +7,13 @@ const fs = require('fs');
 // Ensure upload directory exists
 const ensureUploadDir = () => {
   const uploadDir = path.join(__dirname, '../uploads/blog');
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-    console.log('Created blog upload directory:', uploadDir);
+  try {
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+      console.log('Created blog upload directory:', uploadDir);
+    }
+  } catch (e) {
+    // Ignore filesystem errors in read-only environment like Vercel
   }
   return uploadDir;
 };

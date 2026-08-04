@@ -3,10 +3,14 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Ensure upload directory exists
+// Ensure upload directory exists (safely guarded for serverless)
 const uploadDir = 'uploads/products/';
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (e) {
+  // Ignore filesystem errors in read-only environment like Vercel
 }
 
 // Configure multer for file uploads
