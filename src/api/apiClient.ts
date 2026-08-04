@@ -1,7 +1,6 @@
 // API Client for communicating with the MongoDB backend
 
-// Base URL for API requests - use environment variable or fallback to localhost
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 // Generic function to make API requests
 async function apiRequest(endpoint: string, options: RequestInit = {}) {
