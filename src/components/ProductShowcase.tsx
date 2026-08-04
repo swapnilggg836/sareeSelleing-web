@@ -203,15 +203,19 @@ const ProductShowcase = ({ sales = [] }: ProductShowcaseProps) => {
         const festivalProducts = await productsApi.getProductsByCategory('festival');
         const designerProducts = await productsApi.getProductsByCategory('designer');
         
-        const fetchedProducts = {
-          all: allProducts,
-          wedding: weddingProducts.data || [],
-          festival: festivalProducts.data || [],
-          designer: designerProducts.data || []
-        };
-        
-        setProducts(fetchedProducts);
-        setFilteredProducts(fetchedProducts);
+        if (allProducts.length === 0) {
+          setProducts(sampleProducts);
+          setFilteredProducts(sampleProducts);
+        } else {
+          const fetchedProducts = {
+            all: allProducts,
+            wedding: (weddingProducts.data && weddingProducts.data.length > 0) ? weddingProducts.data : allProducts,
+            festival: (festivalProducts.data && festivalProducts.data.length > 0) ? festivalProducts.data : allProducts,
+            designer: (designerProducts.data && designerProducts.data.length > 0) ? designerProducts.data : allProducts
+          };
+          setProducts(fetchedProducts);
+          setFilteredProducts(fetchedProducts);
+        }
         
         // Initialize color selection for each product
         const colorMap: Record<string, string> = {};
