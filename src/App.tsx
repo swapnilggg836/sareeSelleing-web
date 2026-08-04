@@ -60,9 +60,12 @@ const queryClient = new QueryClient();
 
 import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 
+import ErrorBoundary from "./components/ErrorBoundary";
+
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <WishlistProvider>
           <TooltipProvider>
@@ -155,6 +158,7 @@ function App() {
         </WishlistProvider>
       </AuthProvider>
     </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
