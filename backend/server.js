@@ -84,6 +84,37 @@ app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/admin/notifications', adminNotificationRoutes);
 app.use('/api/admin/dashboard', adminDashboardRoutes);
 
+// ✅ ONE-TIME ADMIN SEED ROUTE — visit /api/seed-admin?key=swapnil2024 to create admin
+app.get('/api/seed-admin', async (req, res) => {
+  if (req.query.key !== 'swapnil2024') {
+    return res.status(403).json({ success: false, error: 'Forbidden' });
+  }
+  try {
+    const bcrypt = require('bcryptjs');
+    const User = require('./models/User');
+    const existing = await User.findOne({ email: 'swapnilg836@gmail.com' });
+    if (existing) {
+      if (existing.role !== 'admin') {
+        await User.findByIdAndUpdate(existing._id, { role: 'admin' });
+        return res.json({ success: true, message: 'User upgraded to admin!' });
+      }
+      return res.json({ success: true, message: 'Admin already exists!', email: existing.email });
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash('Admin@12345', salt);
+    const admin = await User.create({
+      name: 'Swapnil Gaikwad',
+      email: 'swapnilg836@gmail.com',
+      phone: '8605887561',
+      password: hashedPassword,
+      role: 'admin'
+    });
+    res.json({ success: true, message: '🎉 Admin created!', name: admin.name, email: admin.email, role: admin.role });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
