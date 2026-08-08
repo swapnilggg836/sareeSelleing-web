@@ -597,7 +597,7 @@ const ProductDetailPage = () => {
 
             {/* Direct WhatsApp Order / Inquiry Link */}
             <a
-              href={`https://wa.me/919876543210?text=${encodeURIComponent(`Hi Crimson Paithani Emporium! I am interested in purchasing "${product.name}" (${formatPrice(product.price)}). Link: ${window.location.href}`)}`}
+              href={`https://wa.me/918605887561?text=${encodeURIComponent(`Hi Crimson Paithani Emporium! I am interested in purchasing "${product.name}" (${formatPrice(product.price)}). Link: ${window.location.href}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2.5 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition-all text-sm mt-2"

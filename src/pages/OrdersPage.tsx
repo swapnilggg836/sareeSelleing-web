@@ -215,8 +215,8 @@ const OrdersPage = () => {
                 </div>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-gray-700 font-medium">Phone:</span>
-                  <a href="tel:+919876543210" className="text-crimson-600 hover:underline">
-                    +91 98765 43210
+                  <a href="tel:+918605887561" className="text-crimson-600 hover:underline">
+                    +91 86058 87561
                   </a>
                 </div>
               </div>

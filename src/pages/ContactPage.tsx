@@ -72,7 +72,7 @@ const ContactPage = () => {
               <div className="space-y-4">
                 <div>
                   <h3 className="font-medium">Address</h3>
-                  <p className="text-muted-foreground">123 Temple Street, New Delhi, India</p>
+                  <p className="text-muted-foreground">At Post Dhulgaon, Yeola, Nashik, Maharashtra - 423401</p>
                 </div>
                 <div>
                   <h3 className="font-medium">Email</h3>
@@ -93,11 +93,20 @@ const ContactPage = () => {
           <Card>
             <CardHeader>
               <CardTitle>Find Us</CardTitle>
-              <CardDescription>Visit our store location</CardDescription>
+              <CardDescription>Visit our store location in Dhulgaon (423401)</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="aspect-video bg-muted rounded-md flex items-center justify-center">
-                <p className="text-muted-foreground">Map will be displayed here</p>
+              <div className="w-full h-[300px] rounded-lg overflow-hidden border border-gray-200">
+                <iframe
+                  title="Dwarkadish Paithani Store Location Map"
+                  src="https://maps.google.com/maps?q=Dhulgaon,+Yeola,+Nashik,+Maharashtra+423401&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </CardContent>
           </Card>

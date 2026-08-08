@@ -248,7 +248,7 @@ const Footer = () => {
             <div className="space-y-2 text-sm text-crimson-300">
               <p className="flex items-start gap-2">
                 <span className="text-gold-400 mt-0.5">📍</span>
-                123 Fashion Street, Mumbai, Maharashtra 400001
+                At Post Dhulgaon, Yeola, Nashik, Maharashtra - 423401
               </p>
               <p>
                 <a href="tel:+918605887561" className="hover:text-gold-400 transition-colors">

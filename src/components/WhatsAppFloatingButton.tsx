@@ -5,7 +5,7 @@ import { MessageCircle, X } from 'lucide-react';
 const WhatsAppFloatingButton = () => {
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "918605887561";
   const defaultMessage = encodeURIComponent("Hi Crimson Paithani Emporium! I would like to inquire about your Paithani saree collections.");
 
   return (
