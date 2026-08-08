@@ -23,13 +23,27 @@ exports.protect = async (req, res, next) => {
   }
   
   try {
+    const secret = process.env.JWT_SECRET || 'MySuperSecretKey123!@#JWT987654321';
     // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, secret);
     
-    req.user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        error: 'User account no longer exists'
+      });
+    }
     
+    req.user = user;
     next();
   } catch (err) {
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        success: false,
+        error: 'Token expired, please login again'
+      });
+    }
     return res.status(401).json({
       success: false,
       error: 'Not authorized to access this route'

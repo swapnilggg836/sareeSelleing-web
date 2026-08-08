@@ -34,12 +34,25 @@ async function apiRequest(endpoint: string, options: RequestInit = {}) {
 
     console.log('Response status:', response.status);
 
+    if (response.status === 401) {
+      // Clear token on 401 unauthorized / token expired
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user_data');
+    }
+
+    const text = await response.text();
+    let data: any;
+    try {
+      data = text ? JSON.parse(text) : {};
+    } catch (e) {
+      if (!response.ok) {
+        throw new Error(`Server Error (${response.status}): The backend returned an unformatted HTML error page. Please check hosting environment variables & database connection.`);
+      }
+      throw new Error('Invalid JSON response format from server.');
+    }
+
     if (!response.ok) {
-      let errorMessage = `Request failed with status: ${response.status}`;
-      try {
-        const errorData = await response.json();
-        errorMessage = errorData.error || errorMessage;
-      } catch (e) {}
+      const errorMessage = data?.error || `Request failed with status: ${response.status}`;
       throw new Error(errorMessage);
     }
 
@@ -47,7 +60,6 @@ async function apiRequest(endpoint: string, options: RequestInit = {}) {
       return { success: true };
     }
 
-    const data = await response.json();
     console.log('Response data:', data);
     return data;
   } catch (error) {

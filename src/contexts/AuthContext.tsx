@@ -33,6 +33,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkAuthStatus();
   }, []);
 
+  const safeJsonResponse = async (response: Response) => {
+    const text = await response.text();
+    let data: any;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      if (!response.ok) {
+        throw new Error(`Server Error (${response.status}): The hosting server returned an unformatted error page. Please check database connection and environment variables.`);
+      }
+      throw new Error('Invalid response format from server.');
+    }
+
+    if (!response.ok) {
+      throw new Error(data?.error || `Request failed with status: ${response.status}`);
+    }
+
+    return data;
+  };
+
   const checkAuthStatus = async () => {
     const token = localStorage.getItem('auth_token');
     const userData = localStorage.getItem('user_data');
@@ -48,10 +67,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         });
         
         if (response.ok) {
-          const result = await response.json();
+          const text = await response.text();
+          const result = JSON.parse(text);
           setUser(result.data);
         } else {
-          // Token invalid, clear storage
+          // Token invalid or expired, clear storage
           localStorage.removeItem('auth_token');
           localStorage.removeItem('user_data');
           setUser(null);
@@ -78,12 +98,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Login failed');
-      }
-
-      const data = await response.json();
+      const data = await safeJsonResponse(response);
       
       if (data.token && data.user) {
         localStorage.setItem('auth_token', data.token);
@@ -113,12 +128,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ name, email, password, phone }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Registration failed');
-      }
-
-      const data = await response.json();
+      const data = await safeJsonResponse(response);
       
       if (data.token && data.user) {
         localStorage.setItem('auth_token', data.token);
@@ -174,12 +184,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify(profileData),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Update failed');
-      }
-
-      const data = await response.json();
+      const data = await safeJsonResponse(response);
       
       // Update local state and storage
       const updatedUser = { ...user, ...profileData };

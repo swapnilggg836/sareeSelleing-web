@@ -54,10 +54,12 @@ UserSchema.pre('save', async function(next) {
 
 // Sign JWT and return
 UserSchema.methods.getSignedJwtToken = function() {
+  const secret = process.env.JWT_SECRET || 'MySuperSecretKey123!@#JWT987654321';
+  const expiresIn = process.env.JWT_EXPIRE || '30d';
   return jwt.sign(
     { id: this._id, role: this.role },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRE }
+    secret,
+    { expiresIn }
   );
 };
 

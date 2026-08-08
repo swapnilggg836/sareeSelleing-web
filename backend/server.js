@@ -6,12 +6,10 @@ const path = require('path');
 const fs = require('fs');
 const connectDB = require('./config/db');
 
-// Load env vars - locally use config.env, on Vercel use dashboard env vars
-if (process.env.NODE_ENV !== 'production') {
-  const configPath = path.join(__dirname, 'config/config.env');
-  if (fs.existsSync(configPath)) {
-    dotenv.config({ path: configPath });
-  }
+// Load env vars - load config.env as fallback if process.env variables are missing
+const configPath = path.join(__dirname, 'config/config.env');
+if (fs.existsSync(configPath)) {
+  dotenv.config({ path: configPath });
 }
 
 // Connect to database
