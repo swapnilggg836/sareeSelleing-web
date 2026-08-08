@@ -12,8 +12,8 @@ if (fs.existsSync(configPath)) {
   dotenv.config({ path: configPath });
 }
 
-// Connect to database
-connectDB();
+// Connect to database safely
+connectDB().catch(err => console.error("Initial connectDB error:", err.message));
 
 const app = express();
 
